@@ -1,5 +1,3 @@
-var $$ = $$ || {};
-
 class Application {
 	constructor () {
 		"use strict";
@@ -11,6 +9,8 @@ class Application {
 		"use strict";
 
 		console.log('Init Function');
+
+		let testClass = new $$.ExampleClass($, {});
 	}
 }
 

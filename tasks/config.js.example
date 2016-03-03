@@ -8,7 +8,7 @@ module.exports = {
 		tunnel:    true,
 		host:      'localhost',
 		port:      9000,
-		proxy:     'template.dev',
+		proxy:     '', //Название домена например example.dev
 		logPrefix: "Frontend"
 	}
 };

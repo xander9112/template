@@ -1,5 +1,3 @@
-var $$ = $$ || {};
-
 $$.Component = class Component extends $$.Emitter {
 	constructor (root, options) {
 		super();
