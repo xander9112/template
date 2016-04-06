@@ -1,7 +1,8 @@
 var $$ = $$ || {};
+$$.Providers = $$.Providers || {};
 
 $$.Emitter = class Emitter {
-	constructor () {
+	constructor() {
 		this._itemContainer = new $$.Emitter.ItemContainer();
 	}
 
@@ -10,7 +11,7 @@ $$.Emitter = class Emitter {
 	 * @return {Boolean}
 	 * @private
 	 */
-	_isEventIdJustANamespace (eventId) {
+	_isEventIdJustANamespace(eventId) {
 		eventId = String(eventId);
 
 		return !!eventId.match(/^\.[a-z\d]+$/i);
@@ -22,7 +23,7 @@ $$.Emitter = class Emitter {
 	 * @throws {Error}
 	 * @private
 	 */
-	_parseAndValidateEventId (eventId) {
+	_parseAndValidateEventId(eventId) {
 		eventId = String(eventId);
 
 		// Either a single event name.
@@ -30,7 +31,7 @@ $$.Emitter = class Emitter {
 		var match = eventId.match(/^[a-z\d]+$/i);
 
 		if (match) {
-			return [ match[ 0 ], null ];
+			return [match[0], null];
 		}
 
 		// Or an event name + a namespace name.
@@ -39,22 +40,21 @@ $$.Emitter = class Emitter {
 
 		if (!match) {
 			throw Error(
-				'Full event names should not be empty, should consist of letters and numbers'
-				+ ' and may contain only single dot in the middle.'
+				'Full event names should not be empty, should consist of letters and numbers' + ' and may contain only single dot in the middle.'
 			);
 		}
 
-		return [ match[ 1 ], match[ 2 ] ];
+		return [match[1], match[2]];
 	}
 
 	/**
 	 * @param {String} eventId
 	 */
-	trigger (eventId /*, eventData1, eventData2, ... */) {
+	trigger(eventId /*, eventData1, eventData2, ... */ ) {
 		eventId = String(eventId);
 
 		var parts = this._parseAndValidateEventId(eventId);
-		var items = this._itemContainer.getItems(parts[ 0 ], parts[ 1 ]);
+		var items = this._itemContainer.getItems(parts[0], parts[1]);
 		var args = Array.prototype.slice.call(arguments, 1);
 
 		_.each(items, function (item) {
@@ -66,7 +66,7 @@ $$.Emitter = class Emitter {
 	 * @param {String} eventId
 	 * @param {Function} callback
 	 */
-	on (eventId, callback) {
+	on(eventId, callback) {
 		if (!callback) {
 			throw Error('An event callback should be provided.');
 		}
@@ -77,10 +77,10 @@ $$.Emitter = class Emitter {
 
 		var parts = this._parseAndValidateEventId(eventId);
 
-		this._itemContainer.add(parts[ 0 ], parts[ 1 ], callback);
+		this._itemContainer.add(parts[0], parts[1], callback);
 	}
 
-	off (eventId) {
+	off(eventId) {
 		if (!arguments.length) {
 			this._itemContainer.clear();
 			return;
@@ -91,7 +91,7 @@ $$.Emitter = class Emitter {
 		if (!this._isEventIdJustANamespace(eventId)) {
 			// Event name and possible namespace.
 			var parts = this._parseAndValidateEventId(eventId);
-			this._itemContainer.remove(parts[ 0 ], parts[ 1 ]);
+			this._itemContainer.remove(parts[0], parts[1]);
 		} else {
 			// Just a namespace.
 			this._itemContainer.remove(null, eventId.substr(1));
@@ -101,7 +101,7 @@ $$.Emitter = class Emitter {
 
 
 $$.Emitter.ItemContainer = class EmitterItemContainer {
-	constructor () {
+	constructor() {
 		/* Items:
 		 *
 		 * {
@@ -123,19 +123,19 @@ $$.Emitter.ItemContainer = class EmitterItemContainer {
 	 * @param {String} namespace
 	 * @param {Function} callback
 	 */
-	add (eventName, namespace, callback) {
+	add(eventName, namespace, callback) {
 		eventName = String(eventName);
 		namespace = !namespace ? '*' : String(namespace);
 
 		if (!this._items.hasOwnProperty(eventName)) {
-			this._items[ eventName ] = {};
+			this._items[eventName] = {};
 		}
 
-		if (!this._items[ eventName ].hasOwnProperty(namespace)) {
-			this._items[ eventName ][ namespace ] = [];
+		if (!this._items[eventName].hasOwnProperty(namespace)) {
+			this._items[eventName][namespace] = [];
 		}
 
-		this._items[ eventName ][ namespace ].push({
+		this._items[eventName][namespace].push({
 			callback: callback
 		});
 	}
@@ -145,7 +145,7 @@ $$.Emitter.ItemContainer = class EmitterItemContainer {
 	 * @param {String}|null namespace
 	 * @return {Array}
 	 */
-	getItems (eventName, namespace) {
+	getItems(eventName, namespace) {
 		eventName = String(eventName);
 
 		if (!this._items.hasOwnProperty(eventName)) {
@@ -155,18 +155,18 @@ $$.Emitter.ItemContainer = class EmitterItemContainer {
 		if (!namespace) {
 			// Return items for all namespaces of the event.
 
-			var arraysOfItems = _.values(this._items[ eventName ]);
+			var arraysOfItems = _.values(this._items[eventName]);
 
 			return _.union.apply(null, arraysOfItems);
 		}
 
 		namespace = String(namespace);
 
-		if (!this._items[ eventName ].hasOwnProperty(namespace)) {
+		if (!this._items[eventName].hasOwnProperty(namespace)) {
 			return [];
 		}
 
-		return this._items[ eventName ][ namespace ];
+		return this._items[eventName][namespace];
 	}
 
 	/**
@@ -175,7 +175,7 @@ $$.Emitter.ItemContainer = class EmitterItemContainer {
 	 * @param {String} eventName
 	 * @param {String} namespace
 	 */
-	remove (eventName, namespace) {
+	remove(eventName, namespace) {
 		if (!eventName && !namespace) {
 			throw Error('Only one of the arguments can be omitted.');
 		}
@@ -190,31 +190,31 @@ $$.Emitter.ItemContainer = class EmitterItemContainer {
 			eventName = String(eventName);
 			namespace = String(namespace);
 
-			if (!this._items.hasOwnProperty(eventName) || !this._items[ eventName ].hasOwnProperty(namespace)) {
+			if (!this._items.hasOwnProperty(eventName) || !this._items[eventName].hasOwnProperty(namespace)) {
 				return;
 			}
 
-			delete this._items[ eventName ][ namespace ];
+			delete this._items[eventName][namespace];
 		}
 	}
 
 	/**
 	 * @param {String} eventName
 	 */
-	removeByEventName (eventName) {
+	removeByEventName(eventName) {
 		eventName = String(eventName);
 
 		if (!this._items.hasOwnProperty(eventName)) {
 			return;
 		}
 
-		delete this._items[ eventName ];
+		delete this._items[eventName];
 	}
 
 	/**
 	 * @param {String} namespace
 	 */
-	removeByNamespace (namespace) {
+	removeByNamespace(namespace) {
 		namespace = String(namespace);
 
 		_.each(this._items, function (itemsByNamespace) {
@@ -222,11 +222,11 @@ $$.Emitter.ItemContainer = class EmitterItemContainer {
 				return;
 			}
 
-			delete itemsByNamespace[ namespace ];
+			delete itemsByNamespace[namespace];
 		});
 	}
 
-	clear () {
+	clear() {
 		this._items = {};
 	}
 };

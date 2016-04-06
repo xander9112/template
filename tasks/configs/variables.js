@@ -20,6 +20,7 @@ module.exports = {
 			'site/src/js/utils/*',
 			'site/src/js/Component.js',
 			'site/src/js/Components/*',
+			'site/src/js/Providers/*',
 			'site/src/js/Application.js'
 		],
 		styles:       'site/src/styles/site.less',

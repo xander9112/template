@@ -5,6 +5,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var $$ = $$ || {};
+$$.Providers = $$.Providers || {};
 
 $$.Emitter = function () {
 	function Emitter() {
@@ -771,11 +772,7 @@ $$.ExampleClass = function (_$$$Component) {
 		value: function _bindEvents() {}
 	}, {
 		key: "_ready",
-		value: function _ready() {
-			"use strict";
-
-			console.log('ready Class');
-		}
+		value: function _ready() {}
 	}, {
 		key: "_defaultOptions",
 		get: function get() {
@@ -791,6 +788,58 @@ $$.ExampleClass = function (_$$$Component) {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+$$.Providers.Slider = function (_$$$Component) {
+	_inherits(Slider, _$$$Component);
+
+	function Slider(root, options) {
+		_classCallCheck(this, Slider);
+
+		return _possibleConstructorReturn(this, Object.getPrototypeOf(Slider).call(this, root, options));
+	}
+
+	_createClass(Slider, [{
+		key: "initialize",
+		value: function initialize() {
+			"use strict";
+
+			_get(Object.getPrototypeOf(Slider.prototype), "initialize", this).call(this);
+		}
+	}, {
+		key: "_cacheNodes",
+		value: function _cacheNodes() {
+			"use strict";
+
+			this.nodes = {};
+		}
+	}, {
+		key: "_bindEvents",
+		value: function _bindEvents() {}
+	}, {
+		key: "_ready",
+		value: function _ready() {}
+	}, {
+		key: "_defaultOptions",
+		get: function get() {
+			"use strict";
+
+			return {};
+		}
+	}]);
+
+	return Slider;
+}($$.Component);
+"use strict";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Application = function () {
@@ -800,16 +849,32 @@ var Application = function () {
 		_classCallCheck(this, Application);
 
 		this._initFunction();
+		this._initProviderFunction();
+
+		this._initProviderFunction();
+
+		this._initProviderFunction();
 	}
 
 	_createClass(Application, [{
 		key: "_initFunction",
-		value: function _initFunction() {
-			"use strict";
+		value: function _initFunction() {}
+	}, {
+		key: "_initProviderFunction",
+		value: function _initProviderFunction() {
+			$('[data-provider]').each(function (index, element) {
+				var item = $(element);
+				var data = item.data();
+				var provider = data.provider;
+				var providerOptions = data.providerOptions;
 
-			console.log('Init Function');
-
-			var testClass = new $$.ExampleClass($, {});
+				if (!_.isUndefined($$.Providers[provider])) {
+					if (!data.initedProvider) {
+						var ProviderClass = new $$.Providers[provider](item, providerOptions);
+						data.initedProvider = true;
+					}
+				}
+			});
 		}
 	}]);
 
@@ -822,9 +887,9 @@ $(function () {
 	$$.windowWidth = $$.window.width();
 	$$.windowHeight = $$.window.height();
 
-	$$.application = new Application();
-
 	$$.ESCAPE_KEY_CODE = 27;
+
+	$$.application = new Application();
 
 	$$.window.on('resize', function () {
 		$$.windowWidth = $$.window.width();

@@ -1,16 +1,33 @@
 class Application {
-	constructor () {
+	constructor() {
 		"use strict";
 
 		this._initFunction();
+		this._initProviderFunction();
+
+		this._initProviderFunction();
+
+		this._initProviderFunction();
 	}
 
-	_initFunction () {
+	_initFunction() {
 		"use strict";
+	}
 
-		console.log('Init Function');
+	_initProviderFunction() {
+		$('[data-provider]').each((index, element) => {
+			let item = $(element);
+			let data = item.data();
+			let provider = data.provider;
+			let providerOptions = data.providerOptions;
 
-		let testClass = new $$.ExampleClass($, {});
+			if (!_.isUndefined($$.Providers[provider])) {
+				if (!data.initedProvider) {
+					let ProviderClass = new $$.Providers[provider](item, providerOptions);
+					data.initedProvider = true;
+				}
+			}
+		});
 	}
 }
 
@@ -20,9 +37,9 @@ $(function () {
 	$$.windowWidth = $$.window.width();
 	$$.windowHeight = $$.window.height();
 
-	$$.application = new Application();
-
 	$$.ESCAPE_KEY_CODE = 27;
+
+	$$.application = new Application();
 
 	$$.window.on('resize', function () {
 		$$.windowWidth = $$.window.width();

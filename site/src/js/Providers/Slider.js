@@ -1,4 +1,4 @@
-$$.ExampleClass = class ExampleClass extends $$.Component {
+$$.Providers.Slider = class Slider extends $$.Component {
 	constructor (root, options) {
 		super(root, options);
 	}
