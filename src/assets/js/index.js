@@ -1,9 +1,8 @@
 import 'babel-polyfill'
+import $ from 'jquery'
 import Application from './Application';
 
 var $$ = $$ || {};
-
-// TODO: Сделать импорт jQuery и lodash
 
 $(function () {
 	$$.window = $(window);
