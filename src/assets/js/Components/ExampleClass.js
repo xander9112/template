@@ -1,4 +1,4 @@
-import Component from '../Component';
+import Component from 'Component';
 
 export default class ExampleClass extends Component {
 	constructor (root, options) {
