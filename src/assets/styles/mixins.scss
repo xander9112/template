@@ -1,5 +1,21 @@
 @import "variables";
 
+/*
+@mixin if($match, $property, $value) {
+
+if($property = $match) {
+  $property: $value;
+}
+}
+
+@mixin ifNot($match, $property, $value) {
+if($value != $match) {
+  $property: $value;
+}
+}
+*/
+
+/*
 .if(@match, @property, @value) when (@property = @match) {
 		@{property}: @value;
 }
@@ -12,7 +28,7 @@
 .center-position-horizontally() {
 	position: absolute;
 	left: 50%;
-	transform: translateX(-50%); /* с вендорными префиксами все браузеры от ie 9 */
+	transform: translateX(-50%); !* с вендорными префиксами все браузеры от ie 9 *!
 }
 
 // Центрирование блока с произвольной высотой по вертикали.
@@ -68,18 +84,34 @@
 	column-rule-style: @colRuleStyle;
 	column-rule-width: @colRuleWidth;
 }
-
+*/
 // Шрифт
-.font(@size, @family: inherit, @color: inherit, @lineHeight: inherit, @letterSpacing: inherit, @weight: inherit, @style: inherit) {
-	.ifNot(inherit, color, @color);
-	font-size: @size;
-	.ifNot(inherit, font-family, @family);
-	.ifNot(inherit, font-weight, @weight);
-	.ifNot(inherit, font-style, @style);
-	.ifNot(inherit, line-height, @lineHeight);
-	.ifNot(inherit, letter-spacing, @letterSpacing);
+@mixin font($size, $family: inherit, $color: inherit, $lineHeight: inherit, $letterSpacing: inherit, $weight: inherit, $style: inherit) {
+  @if ($color != inherit) {
+	color: $color;
+  }
+
+  font-size: $size;
+
+  @if ($family != inherit) {
+	font-family: $family;
+  }
+
+  @if ($weight != inherit) {
+	font-weight: $weight;
+  }
+  @if ($style != inherit) {
+	font-style: $style;
+  }
+  @if ($lineHeight != inherit) {
+	line-height: $lineHeight;
+  }
+  @if ($letterSpacing != inherit) {
+	letter-spacing: $letterSpacing;
+  }
 }
 
+/*
 // Обрезка текста...
 .elipsis() {
 	overflow: hidden;
@@ -212,14 +244,15 @@
 		color: @color !important;
 	}
 }
+*/
 
-.createFont(@folder: '', @fontName: '') {
-	font-family: @fontName;
-	src: url('@{fontPath}@{folder}/@{fontName}/@{fontName}.eot');
-	src: url('@{fontPath}@{folder}/@{fontName}/@{fontName}.eot?#iefix') format('embedded-opentype'),
-	url('@{fontPath}@{folder}/@{fontName}/@{fontName}.woff') format('woff'),
-	url('@{fontPath}@{folder}/@{fontName}/@{fontName}.ttf') format('truetype'),
-	url('@{fontPath}@{folder}/@{fontName}/@{fontName}.svg') format('svg');
-	font-weight: bold;
-	font-style: normal;
+@mixin createFont($folder: '', $fontName: '') {
+  font-family: $fontName;
+  src: url('#{$fontPath}#{$folder}/#{$fontName}/#{$fontName}.eot');
+  src: url('#{$fontPath}#{$folder}/#{$fontName}/#{$fontName}.eot?#iefix') format('embedded-opentype'),
+  url('#{$fontPath}#{$folder}/#{$fontName}/#{$fontName}.woff') format('woff'),
+  url('#{$fontPath}#{$folder}/#{$fontName}/#{$fontName}.ttf') format('truetype'),
+  url('#{$fontPath}#{$folder}/#{$fontName}/#{$fontName}.svg') format('svg');
+  font-weight: bold;
+  font-style: normal;
 }

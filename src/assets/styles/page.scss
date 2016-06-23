@@ -1,0 +1,13 @@
+@import "mixins";
+
+body {
+
+  @include font(12px, inherit, red, inherit, 0.5px);
+
+  width: 100%;
+
+  &.start-loader {
+	//overflow: hidden;
+	//padding-right: 17px;
+  }
+}

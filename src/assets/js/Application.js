@@ -2,15 +2,15 @@ import $ from 'jquery'
 import ExampleClass from './Components/ExampleClass';
 
 export default class Application {
-    constructor () {
-        "use strict";
+	constructor () {
+		"use strict";
 
-        this._initFunction();
-    }
+		this._initFunction();
+	}
 
-    _initFunction () {
-        "use strict";
+	_initFunction () {
+		"use strict";
 
-        new ExampleClass($('.js-test-class'), {});
-    }
+		new ExampleClass($('.js-test-class'), {});
+	}
 }
