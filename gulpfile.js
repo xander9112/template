@@ -14,8 +14,7 @@ register(gulp, plugins, config)([
 	'build-styles',
 	'copy',
 	'serve',
-	'watch',
-	'deploy'
+	'watch'
 ]);
 
 gulp.task('clean', function (callback) {
