@@ -1,0 +1,27 @@
+@font-face {
+  @include createFont('Georgia', $GeorgiaRegular);
+}
+
+@font-face {
+  @include createFont('PTSans', $PTSansBold);
+}
+
+@font-face {
+  @include createFont('PTSans', $PTSansCaptionBold);
+}
+
+@font-face {
+  @include createFont('PTSans', $PTSansRegular);
+}
+
+@font-face {
+  @include createFont('PTSerif', $PTSerifBoldItalic);
+}
+
+@font-face {
+  @include createFont('PTSerif', $PTSerifItalic);
+}
+
+@font-face {
+  @include createFont('PTSerif', $PTSerifRegular);
+}
