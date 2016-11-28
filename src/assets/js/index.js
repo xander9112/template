@@ -1,21 +1,25 @@
-import 'babel-polyfill'
-import $ from 'jquery'
-import Application from './Application';
+/*
+ import $ from 'jquery'
+ import Application from './Application';
 
-var $$ = $$ || {};
+ var $$ = $$ || {};
 
-$(function () {
-	$$.window = $(window);
-	$$.body = $(document.body);
-	$$.windowWidth = $$.window.width();
-	$$.windowHeight = $$.window.height();
+ $(function () {
+ $$.window = $(window);
+ $$.body = $(document.body);
+ $$.windowWidth = $$.window.width();
+ $$.windowHeight = $$.window.height();
 
-	$$.application = new Application();
+ $$.application = new Application();
 
-	$$.ESCAPE_KEY_CODE = 27;
+ $$.ESCAPE_KEY_CODE = 27;
 
-	$$.window.on('resize', function () {
-		$$.windowWidth = $$.window.width();
-		$$.windowHeight = $$.window.height();
-	});
-});
+ $$.window.on('resize', function () {
+ $$.windowWidth = $$.window.width();
+ $$.windowHeight = $$.window.height();
+ });
+ });
+ */
+let test = {
+	name: 'fsafas'
+};
